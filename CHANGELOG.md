@@ -2,6 +2,12 @@
 
 All notable changes to WR Auto Converter are documented here.
 
+## [1.1.1] — 2026-09-18
+
+### Fixed
+- **Real conversion-breaking bug**: stream files over 16MB (a common size for hi-res weapon/vehicle textures) could come out corrupted from the loose-file converters (weapon folder, vehicle folder). The RPF7 format encodes an oversized resource's true size into specific bytes of its own header instead of the archive's normal size field — that encoding only exists on a file that's already been packed into an RPF before, and a loose file read straight off disk never had it applied. Now applied correctly at pack time; caught this via a real broken conversion during testing (a 17.1MB weapon model read back as garbage after conversion).
+- **`_hi`/`_mag1` suffix detection now recognizes `+`/`-` as delimiters, not just `_`.** A real mod used `w_ar_carbinerifle+hi.ytd` (plus sign) — the old exact-match detection treated it as a plain base file, which collided with and silently displaced the real base texture during renaming. Confirmed fixed against the exact real file that triggered this.
+
 ## [1.1.0] — 2026-09-18
 
 ### Added
