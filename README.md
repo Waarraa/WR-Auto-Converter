@@ -10,13 +10,14 @@ This is a solo project (WR), built and tested against real downloaded mods and r
 
 ## Features
 
-- **Vehicle converter** — point it at a singleplayer vehicle mod's `dlc.rpf`, pick which vanilla GTA V vehicle it should replace (full photo picker, searchable, grouped by category — including bikes/bicycles), and it builds the converted package.
+- **Vehicle converter** — point it at a singleplayer vehicle mod's `dlc.rpf` (or a folder of loose `.yft`/`.ytd` stream files, for mods that ship without a packed archive), pick which vanilla GTA V vehicle it should replace (full photo picker, searchable, grouped by category — including bikes/bicycles), and it builds the converted package. Automatically excludes tuning-kit/livery extras instead of mistaking them for the base model.
 - **Weapon converter** — point it at a weapon mod's folder (the loose `.ydr`/`.ytd` files), pick the vanilla weapon it replaces, same idea. Correctly handles `_hi` (high-detail model) and `_mag1`/`_mag2` (magazine model/texture) stream files instead of mangling them.
-- **Vehicle class crash-safety check** — automatically blocks converting a mod onto a vanilla target of a mismatched vehicle class (e.g. a truck mod replacing a compact car slot). Different classes have different skeletons — this is a real crash/visual-break risk, not a cosmetic warning.
+- **Vehicle class crash-safety check** — automatically blocks converting a mod onto a vanilla target of a mismatched vehicle class (e.g. a truck mod replacing a compact car slot). Different classes have different skeletons — this is a real crash/visual-break risk, not a cosmetic warning. (Only runs when a `dlc.rpf`'s `vehicles.meta` is available — loose-file mode has nothing to read a class from.)
+- **Auto-created output folder** — leave the output folder empty and it creates `Desktop/WR Converted Files/Vehicles` or `/Weapons` for you automatically, with a running README of what's been converted there.
 - **Batch conversion** — queue up multiple mods and convert them all in one go, with automatic name collision handling.
 - **Drag-and-drop** support for adding mods to the queue.
 - **Live activity log** — every real step of a conversion (files read, renamed, packaged, written, self-verified) shown per item, with a "Copy log" button for sharing/debugging.
-- **Variant-folder warning** for weapons — some weapon mods ship multiple variant subfolders (different barrels, optional reskins, etc.); the tool doesn't guess which one you want, so it tells you up front to pick the right files yourself.
+- **Variant-folder warning** for weapons and loose-file vehicle mods — some mods ship multiple variant subfolders (different barrels, optional reskins, etc.); the tool doesn't guess which one you want, so it tells you up front to pick the right files yourself.
 - **Spam-guard cooldown** on Convert All so you can't accidentally double-fire a batch.
 - Dark, WR-branded UI.
 
@@ -36,10 +37,10 @@ The output is a single `.rpf` file. This is a **personal client-side mod, not a 
    > Windows SmartScreen may flag it since it isn't signed with a paid certificate. Click "More info" → "Run anyway".
 2. Pick **Convert Vehicles** or **Convert Weapons** from the sidebar.
 3. Add your mod:
-   - **Vehicle**: drag in (or browse to) the mod's `dlc.rpf`.
+   - **Vehicle**: drag in (or browse to) the mod's `dlc.rpf`, or use "Browse Folder" if it's loose `.yft`/`.ytd` files instead.
    - **Weapon**: browse to the mod's folder. If it has multiple variant subfolders (different barrels, optional reskins, etc.), open it yourself first and remove the variants you don't want — the tool grabs every stream file left in the folder you pick.
 4. Click the target picker and choose the vanilla vehicle/weapon it should replace.
-5. Pick an output folder.
+5. Pick an output folder, or leave it empty to auto-create one on your Desktop.
 6. Hit **Convert All**. Check the activity log if you want to see exactly what happened.
 7. Drop the converted `.rpf` into your FiveM client's `mods` folder.
 

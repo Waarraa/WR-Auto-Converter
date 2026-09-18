@@ -2,6 +2,18 @@
 
 All notable changes to WR Auto Converter are documented here.
 
+## [1.1.0] — 2026-09-18
+
+### Added
+- **Vehicle converter now accepts loose stream files, not just a dlc.rpf.** Some vehicle mods ship as raw `.yft`/`.ytd` files instead of a packed archive — added a "Browse Folder (raw files)" option alongside the existing dlc.rpf picker. The two source types share one queue and convert together in a single batch.
+- **Auto-created output folder.** Leaving the output folder empty is now a valid choice — it auto-creates `Desktop/WR Converted Files/Vehicles` or `/Weapons` and keeps a `README.md` there listing recently converted files, plus links. The app now says "Leave Empty to Auto Create Folder In Desktop" instead of blocking the Convert button.
+- **Bicycles added to the vehicle picker** (bmx, cruiser, fixter, scorcher, tribike x3) — image assets existed but had no dataset entries, so they were previously unselectable.
+
+### Fixed
+- **Loose-file vehicle folders no longer sweep in tuning/livery parts as if they were the base model.** The dlc.rpf flow already excludes a mod's separate tuning-kit archive; loose-file mode had no equivalent and would rename *every* non-wheel file to the target, including things like bonnets/bumpers/spoilers/liveries. Now the real base model is identified as the one file basename with both a `.yft` and `.ytd` present (the only reliable structural signal), and everything else is excluded with a clear warning — confirmed against a real 81-file mod (BMW M3 G80) with a `tuning/` subfolder full of extra parts.
+- **`va_<model>.ycd` (vehicle animation dict) is now correctly recognized and renamed** (`va_<target>.ycd`) instead of being excluded alongside real tuning-kit extras.
+- **Native Windows folder-picker dialogs now open at a sane starting path** (Desktop) instead of cold — mitigates (though doesn't fully eliminate, this is an OS-level dialog quirk) a Windows Explorer shell-view glitch where a folder's contents sometimes render blank on first open.
+
 ## [1.0.0] — 2026-09-18
 
 First public release.
