@@ -32,7 +32,7 @@ The output is a single `.rpf` file. This is a **personal client-side mod, not a 
 
 ## How to use it
 
-1. Download `WR-Auto-Converter.exe` from this repo and run it — it's portable, no installer, no admin rights needed.
+1. Download `WR-Auto-Converter.exe` from the [latest release](https://github.com/Waarraa/WR-Auto-Converter/releases/latest) and run it — it's portable, no installer, no admin rights needed.
    > Windows SmartScreen may flag it since it isn't signed with a paid certificate. Click "More info" → "Run anyway".
 2. Pick **Convert Vehicles** or **Convert Weapons** from the sidebar.
 3. Add your mod:
