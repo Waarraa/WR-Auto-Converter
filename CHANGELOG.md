@@ -2,6 +2,20 @@
 
 All notable changes to WR Auto Converter are documented here.
 
+## [1.1.2] — 2026-09-21
+
+### Added
+- **Server-side / add-on vehicle conversion — the whole new mode.** Converts a singleplayer vehicle mod into a real FiveM add-on resource (`data/*.meta` + `stream/*` + a generated `fxmanifest.lua`) that a server distributes to every connected player, instead of just a personal client-side replace. Works from either a mod's `dlc.rpf` or loose stream files (with or without their own `.meta` — missing `vehicles.meta`/`handling.meta` get auto-generated). Available from the sidebar's new "Server-Side" nav group, alongside the existing "Client-Side" tools.
+- **Bundled handling presets.** A "Handling" picker on every add-on queue row — keep the car's own handling, or pick a bundled preset (Drift/Rally/Speed/Electric/Offroad/Realistic). When the source has no `handling.meta` of its own, the chosen preset also drives the auto-generated `vehicles.meta`'s physical defaults (vehicle class, wheel type, swankness, etc.).
+- **Full, consistent rebrand on custom naming.** Renaming a vehicle now covers every stream file that references the old name (not just the primary model), plus rewrites `carcols.meta`'s tuning-kit part/kit references and `carvariations.meta`'s kit entry to match — so a full custom-name conversion no longer leaves half the tuning kit pointing at the old name.
+- **WR credit tag** ("Converted by WR Auto Converter - Warraa_ <3") added to every output `.meta` file and the first line of every generated `fxmanifest.lua`.
+
+### Fixed
+- **Real in-game crash fixed**: loose add-on stream files could be missing their inline resource header, depending on how the source mod's own `dlc.rpf` stored them — caused an "Invalid fixup" crash on load. Now synthesized correctly when missing.
+- **Multi-vehicle source packs are now hard-blocked instead of silently corrupting the output.** If a mod's `vehicles.meta` bundles more than one vehicle, converting only ever renamed the one you picked and shipped every other vehicle through untouched under its original name — a real, confirmed cause of a live server streaming crash (duplicate/colliding names). Now detected and blocked up front with a clear explanation, instead of producing broken output that looks like it succeeded.
+- **Files over 16MB are now correctly detected and blocked for add-on conversion** (RPF-sourced only) instead of silently shipping corrupted output — this size class has a storage quirk that can't be losslessly converted to a loose file; the tool tells you why and what to do instead (re-export the file, or convert manually).
+- Add-on loose-folder source now correctly keeps every stream file whenever the source folder has any `.meta` file at all (not just when `carcols.meta` specifically is present), and correctly finds a source's own `.meta` files even when you pick the `stream` subfolder directly instead of its parent.
+
 ## [1.1.1] — 2026-09-18
 
 ### Fixed
